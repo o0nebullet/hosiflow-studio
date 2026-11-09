@@ -1,11 +1,14 @@
 {
   "manifest_version": 3,
   "name": "HosiFlow Companion",
-  "version": "1.3.1",
-  "description": "Cầu nối tự động giữa HosiFlow Studio và phiên làm việc Muse.ai.",
+  "version": "1.5.7",
+  "description": "Cầu nối tự động giữa HosiFlow Studio và phiên làm việc Muse.ai & Google Flow Music.",
   "action": {
     "default_title": "HosiFlow Companion",
-    "default_icon": { "16": "icons/icon16.png", "32": "icons/icon32.png" }
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png"
+    }
   },
   "icons": {
     "16": "icons/icon16.png",
@@ -25,13 +28,46 @@
   "host_permissions": [
     "https://muse.ai/*",
     "https://*.muse.ai/*",
+    "https://flowmusic.app/*",
+    "https://*.flowmusic.app/*",
+    "https://www.flowmusic.app/*",
+    "https://storage.googleapis.com/*",
+    "https://*.googleapis.com/*",
     "http://127.0.0.1/*",
     "http://localhost/*"
   ],
   "content_scripts": [
     {
-      "matches": ["https://muse.ai/*", "https://*.muse.ai/*"],
-      "js": ["muse-bridge.js"],
+      "matches": [
+        "https://muse.ai/*",
+        "https://*.muse.ai/*"
+      ],
+      "js": [
+        "muse-bridge.js"
+      ],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": [
+        "https://flowmusic.app/*",
+        "https://*.flowmusic.app/*",
+        "https://www.flowmusic.app/*"
+      ],
+      "js": [
+        "flowmusic-inpage.js"
+      ],
+      "world": "MAIN",
+      "run_at": "document_start"
+    },
+    {
+      "matches": [
+        "https://flowmusic.app/*",
+        "https://*.flowmusic.app/*",
+        "https://www.flowmusic.app/*"
+      ],
+      "js": [
+        "flowmusic-adapter.js"
+      ],
       "run_at": "document_idle"
     }
   ]
